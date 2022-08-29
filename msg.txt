@@ -56,3 +56,4 @@ Hello there, {}
 I solemnly swear that {} is up to no good
 Don't worry {}, the Forever King has your best interest at heart. Promise.
 If you've got time to lean, you've got time to place a Meeple, {}
+Yes {}, we've had first Charterstone. But what about second Charterstone?
