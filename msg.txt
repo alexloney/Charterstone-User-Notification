@@ -57,3 +57,12 @@ I solemnly swear that {} is up to no good
 Don't worry {}, the Forever King has your best interest at heart. Promise.
 If you've got time to lean, you've got time to place a Meeple, {}
 Yes {}, we've had first Charterstone. But what about second Charterstone?
+{} I am your father!
+"You'll never expect this next move!" - {}, probably.
+{}, what...is your favorite color?
+{}, even the smallest Meeple can change the course of the future.
+{}, you either die a hero, or live long enough to see yourself become the Forever King
+{}, roads? Where we're going, we don't need roads.
+I'm sorry, {}. I'm afraid I can't do that.
+Your thoughts betray you, {}. I feel the good in you, the conflict.
+My name is {}, you killed my father, prepare to die!
