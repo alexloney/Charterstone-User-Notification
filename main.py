@@ -24,6 +24,7 @@ def get_current_user(packet, game_id):
         data = match.group(1).replace('\\\'', '\'')
         try:
             data = json.loads(data)
+            # print(data)
         except json.JSONDecodeError:
             return
     else:
@@ -36,42 +37,47 @@ def get_current_user(packet, game_id):
     current_user = data[game_id]['ha']['tn0']
     return current_user
 
-def trigger_ifff(user):
-    ifttt_url = 'https://maker.ifttt.com/trigger/' + Constants.APPLET_NAME + '/with/key/' + Constants.API_KEY
+def trigger_ifttt(user, game):
+    ifttt_url = 'https://maker.ifttt.com/trigger/' + game['APPLET'] + '/with/key/' + Constants.API_KEY
     payload = '?value1='
 
     with open('msg.txt') as f:
-        messages = f.read().splitlines()
-
-    msg = random.choice(messages)
-
-    if user in Constants.USERS:
-        msg = msg.format(Constants.USERS[user])
+        msg = random.choice(f.read().splitlines())
+    
+    if user in game['USERS']:
+        msg = msg.format(game['USERS'][user])
     else:
-        print('Unable to locate user: ' + user)
+        print('Unable to locate user: ' + user + ' in game: ' + game['MAGIC'])
         return
-
+    
     payload += urllib.parse.quote(msg)
     requests.post(ifttt_url + payload)
 
-
 p = subprocess.Popen(('tcpdump', 'udp', 'port', '5055', '-X'), stdout=subprocess.PIPE)
 
-last_user = ''
+last_user = {}
+current_user = {}
+for game in Constants.GAMES:
+    last_user[game['MAGIC']] = ''
+    current_user[game['MAGIC']] = ''
+
 packet = []
 for row in iter(p.stdout.readline, b''):
     if b': UDP, length ' in row:
         if len(packet) > 0:
-            current_user = get_current_user(packet, Constants.GAME_MAGIC)
-            if current_user is not None:
-                if len(last_user) == 0:
-                    last_user = current_user
-                    print('First: ' + last_user)
-                    continue
-                elif last_user != current_user:
-                    last_user = current_user
-                    print('Update: ' + last_user)
-                    trigger_ifff(current_user)
+            for game in Constants.GAMES:
+                current_user[game['MAGIC']] = get_current_user(packet, game['MAGIC'])
+
+                if current_user[game['MAGIC']] is not None:
+                    if len(last_user[game['MAGIC']]) == 0:
+                        last_user[game['MAGIC']] = current_user[game['MAGIC']]
+                        print(game['MAGIC'] + ': ' + last_user[game['MAGIC']])
+                        continue
+                    elif last_user[game['MAGIC']] != current_user[game['MAGIC']]:
+                        last_user[game['MAGIC']] = current_user[game['MAGIC']]
+                        print('Update: ' + game['MAGIC'] + ': ' + last_user[game['MAGIC']])
+                        trigger_ifttt(current_user[game['MAGIC']], game)
+
         packet = []
     else:
         packet.append(row.strip())

@@ -25,15 +25,28 @@ Python script.
 
 In order to run the Python script, simply create a `Constants.py` that looks like the following:
 ```
-GAME_MAGIC = '...'
-APPLET_NAME = 'Get this from IFTTT WebApplet'
 API_KEY = 'Get this from IFTTT, select Documentation to see it'
-USERS = {
-    'Name as seen in Charterstone': '<@Discord ID>',
-    'Name as seen in Charterstone': '<@Discord ID>',
-    'Name as seen in Charterstone': '<@Discord ID>',
-    ...
-}
+GAMES = [{
+    'MAGIC': 'Get this from the JSON data in monitoring Charterstone',
+    'APPLET': 'Get this from IFTTT Webhook documentation',
+    'USERS': {
+        'Name as seen in Charterstone': '<@Discord ID>',
+        'Name as seen in Charterstone': '<@Discord ID>',
+        'Name as seen in Charterstone': '<@Discord ID>',
+        ...
+    }
+},{
+    'MAGIC': 'Get this from the JSON data in monitoring Charterstone',
+    'APPLET': 'Get this from IFTTT Webhook documentation',
+    'USERS': {
+        'Name as seen in Charterstone': '<@Discord ID>',
+        'Name as seen in Charterstone': '<@Discord ID>',
+        'Name as seen in Charterstone': '<@Discord ID>',
+        ...
+    }
+},
+...
+]
 ```
 
 Then execute the Python script with:
