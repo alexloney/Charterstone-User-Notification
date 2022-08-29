@@ -25,7 +25,7 @@ Python script.
 
 In order to run the Python script, simply create a `Constants.py` that looks like the following:
 ```
-GAME_MAGIX = '...'
+GAME_MAGIC = '...'
 APPLET_NAME = 'Get this from IFTTT WebApplet'
 API_KEY = 'Get this from IFTTT, select Documentation to see it'
 USERS = {
